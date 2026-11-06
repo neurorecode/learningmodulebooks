@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Learning Module Books</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">LMB</div>
+    <div>
+      <h1>Learning Module Books</h1>
+      <p class="tagline">Build video courses from your YouTube library.</p>
+    </div>
+  </div>
+  <div class="actions">
+    <button id="newModuleBtn" class="primary">+ New module</button>
+    <button id="importBtn" title="Import JSON">Import</button>
+    <button id="exportBtn" title="Export JSON">Export</button>
+    <input id="importFile" type="file" accept="application/json" hidden />
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Modules</h2>
+      <span id="moduleCount" class="pill">0</span>
+    </div>
+    <ul id="moduleList" class="module-list"></ul>
+    <div id="emptySidebar" class="empty small">No modules yet. Create one to get started.</div>
+  </aside>
+
+  <section id="moduleView" class="content">
+    <div id="emptyState" class="empty">
+      <div class="emoji" aria-hidden="true">📚</div>
+      <h2>Welcome</h2>
+      <p>Create your first module, then paste YouTube links to build lessons.</p>
+      <button id="emptyNewModule" class="primary">+ Create module</button>
+    </div>
+
+    <article id="moduleDetail" hidden>
+      <header class="module-header">
+        <div class="titles">
+          <input id="moduleTitle" class="title-input" placeholder="Module title" />
+          <textarea id="moduleDesc" class="desc-input" placeholder="Short description…" rows="2"></textarea>
+        </div>
+        <div class="module-meta">
+          <div class="progress">
+            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+            <span id="progressLabel" class="progress-label">0 / 0 complete</span>
+          </div>
+          <button id="deleteModuleBtn" class="danger ghost">Delete module</button>
+        </div>
+      </header>
+
+      <section class="add-lesson">
+        <h3>Add a lesson</h3>
+        <form id="addLessonForm" class="add-form">
+          <input id="lessonUrl" type="text" placeholder="Paste YouTube URL or video ID" required />
+          <input id="lessonTitle" type="text" placeholder="Lesson title (optional)" />
+          <button type="submit" class="primary">Add lesson</button>
+        </form>
+        <p id="addLessonError" class="error" hidden></p>
+      </section>
+
+      <section class="lessons">
+        <h3>Lessons</h3>
+        <ol id="lessonList" class="lesson-list"></ol>
+        <div id="emptyLessons" class="empty small">No lessons yet.</div>
+      </section>
+    </article>
+  </section>
+</main>
+
+<template id="lessonTemplate">
+  <li class="lesson-card">
+    <div class="lesson-head">
+      <label class="done-toggle">
+        <input type="checkbox" class="done-check" />
+        <span class="check-ui" aria-hidden="true"></span>
+      </label>
+      <div class="lesson-title-wrap">
+        <input class="lesson-title-input" placeholder="Lesson title" />
+        <div class="lesson-sub">
+          <a class="lesson-link" target="_blank" rel="noopener">Open on YouTube ↗</a>
+        </div>
+      </div>
+      <div class="lesson-actions">
+        <button class="ghost move-up" title="Move up">▲</button>
+        <button class="ghost move-down" title="Move down">▼</button>
+        <button class="ghost toggle-player" title="Show/hide player">Play</button>
+        <button class="ghost danger delete-lesson" title="Delete">Remove</button>
+      </div>
+    </div>
+    <div class="player-wrap" hidden>
+      <div class="player-aspect">
+        <iframe class="player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <textarea class="lesson-notes" rows="3" placeholder="Notes…"></textarea>
+    </div>
+  </li>
+</template>
+
+<footer class="footer">
+  <span>Data stays in your browser (localStorage). Export regularly to back up.</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
